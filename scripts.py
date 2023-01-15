@@ -2,6 +2,21 @@ import requests
 import pandas as pd
 from io import BytesIO
 from datetime import datetime
+from flask import Response
+
+
+
+ # export excel file
+def exportexcelfile(df_output):
+        buffer = BytesIO()        
+        df_output.to_excel(buffer)
+        headers = {
+             'Content-Disposition': 'attachment; filename=output.xlsx',
+             'Content-type': 'application/vnd.ms-excel'
+        }
+        
+        return Response(buffer.getvalue(), mimetype='application/vnd.ms-excel', headers=headers)
+
 
 def getDaysBetweenDates(date1, date2):
     date_format = "%d/%m/%Y"
@@ -13,7 +28,7 @@ def getDaysBetweenDates(date1, date2):
     return delta.days
 
 
-#----------------------- FORMAT DATES -----------------------------------------
+#---------------------------------------- FORMAT DATES -----------------------------------------
 def formatDates(dt1, dt2):
     
     dia,mes,ano = dt1.split('/')
@@ -32,7 +47,8 @@ def formatDates(dt1, dt2):
     
     return fromDate, toDate
 
-#----------  GET TWEETS -------------------------
+#------------------------------------  GET TWEETS -----------------------------------
+
 def getTweetsFullArchive(query,lang,fromDate, toDate):
     # use the full archive endpoint from twitter api;
     # fromDate and toDate format: '202208250000'
@@ -96,7 +112,7 @@ def getTweetsFullArchive(query,lang,fromDate, toDate):
     
     return df1
 
-#----------------- TWEETS COUNT ------------------------------------------
+#------------------------------------------ TWEETS COUNT ------------------------------------------
 
 def getTweetsCount(query,lang,fromDate, toDate):        
     # token from autorization
@@ -172,7 +188,7 @@ def getTweetsCount(query,lang,fromDate, toDate):
     
     return df1
 
-#----------------- RECENT TWEETS COUNT ------------------------------------------
+#----------------------------------------- RECENT TWEETS COUNT ------------------------------------------
 
 def getTweetsRecentCount(query,lang):        
     
@@ -262,7 +278,7 @@ def getTweetsRecentCount(query,lang):
     
     return df1
 
-#----------  GET TWEETS -------------------------
+#-------------------------------------  GET RECENT TWEETS ------------------------------------
 def getRecentTweets(query,lang):
     
     # token from autorization
