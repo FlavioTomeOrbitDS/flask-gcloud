@@ -280,6 +280,8 @@ def getTweetsRecentCount(query,lang):
 
 #-------------------------------------  GET RECENT TWEETS ------------------------------------
 def getRecentTweets(query,lang):
+    #requests counter:
+    requests_count = 0
     
     # token from autorization
     bearer_token = "AAAAAAAAAAAAAAAAAAAAAA5chgEAAAAA73XpwdJWFyAei9XfNvs%2Fk1vTOws%3DNdKfgnK84FLwadYmIbbGRdr1JeW1aOtJSbCEUi9Rly85VqeM1w"
@@ -292,13 +294,15 @@ def getRecentTweets(query,lang):
     params = {'query': query, 'max_results': '100'}
         
     url = 'https://api.twitter.com/2/tweets/search/recent'            
+    
+    requests_count += 1
     response = requests.get(url, headers=header, params=params)
     
     
     print(response.request.url)
     print(response.request.body)
     print(response.request.headers)
-    print(response)
+    print("request n.: "+str(requests_count)+" resp code: "+ str(response))
     
     json = response.json()
     try:
@@ -322,10 +326,13 @@ def getRecentTweets(query,lang):
         params = {'query': query,'next_token': next_token, 'max_results': '100'}
         
         url = 'https://api.twitter.com/2/tweets/search/recent'            
+        
+        requests_count += 1
+        
         response = requests.get(url, headers=header, params=params)
         
         print(response.request.url)
-        print(response)
+        print("request n.: "+str(requests_count)+" resp code: "+ str(response))
         json = response.json()
         #df2 = pd.DataFrame(json['results'])
         df2 = pd.DataFrame(json['data'])
