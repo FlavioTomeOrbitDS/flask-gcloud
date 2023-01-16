@@ -24,17 +24,61 @@
       integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
       crossorigin="anonymous"
     ></script>
-
     <!-- Fengyuan Chen's Datepicker -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
-</head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css"
+      integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE="
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"
+      integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k="
+      crossorigin="anonymous"
+    ></script>
 
-    <title>Orbit Tweets Search</title>
+    <script>
+      function getElementByXpath(path) {
+        return document.evaluate(
+          path,
+          document,
+          null,
+          XPathResult.FIRST_ORDERED_NODE_TYPE,
+          null
+        ).singleNodeValue;
+      }
+      function checkClick() {
+        chk = document.getElementById("fullCheckBox");
+        if (chk.checked == true) {
+          label = getElementByXpath("/html/body/div/form/div/label[3]");
+          label.style.display = "block";
+          label = getElementByXpath("/html/body/div/form/div/label[4]");
+          label.style.display = "block";
+          document.getElementById("datepicker").style.display = "block";
+          document.getElementById("datepicker2").style.display = "block";
+          document.getElementById("datepicker").required = true;
+          document.getElementById("datepicker2").required = true;
+        } else {
+          label = getElementByXpath("/html/body/div/form/div/label[3]");
+          label.style.display = "none";
+          label = getElementByXpath("/html/body/div/form/div/label[4]");
+          label.style.display = "none";
+          document.getElementById("datepicker").style.display = "none";
+          document.getElementById("datepicker2").style.display = "none";
+          document.getElementById("datepicker").required = false;
+          document.getElementById("datepicker2").required = false;
+        }
+      }
+
+      $(function () {
+        $("#datepicker").datepicker({ format: "dd/mm/yyyy" });
+        $("#datepicker2").datepicker({ format: "dd/mm/yyyy" });
+      });
+    </script>
   </head>
 
+  <title>Orbit Tweets Search</title>
   <body>
-    
     <!--NAV BAR-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
@@ -57,7 +101,7 @@
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="/"
-                >Full Search</a
+                >Tweets Search</a
               >
             </li>
             <li class="nav-item">
@@ -69,50 +113,116 @@
         </div>
       </div>
     </nav>
-    <!-- Preloader -->
-    
-</div>
 
-   
-      <!-- FORM -->
-      <div class="container">
-        <br>
-        <h2>Full Search</h2>
-            <form method="post" name="form1">
-                  <div class="form-group">
-                    <div class="form-group">
-                    <label for="formGroupExampleInput">Query</label>
-                    <input type="text" class="form-control" name="query" id="query" placeholder="Insira a query de busca" required="true">
-                  
-              
-                  
-                  <label for="inputState">Idioma</label>
-                  <select name="idioma" id="idioma" class="form-control" required="true">
-                    <option selected value="-1">Qualquer idioma</option>
-                    <option value="pt">Português</option>
-                    <option value="en">Inglês</option>
-                    <option value="es">Espanhol</option>
-                  </select>
-                                                    
-                    <label for="formGroupExampleInput">Data Inicial</label>
-                    <input type="text" class="form-control" name="datepicker" id="datepicker" required="true">
-                    <label for="formGroupExampleInput">Data Final</label>
-                    <input type="text" class="form-control" name="datepicker2" id="datepicker2" required="true">
-                  </div>
+    <!-------------------------- FORM ------------------------------>
+    <div class="container">
+      <br />
+      <h2>Tweets Search</h2>
+      <form method="post" name="form1">
+        <div class="form-group">
+          <!-------------------------- checkbox ------------------------------>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="chkbox"
+              id="fullCheckBox"
+              onclick="checkClick()"
+              value="0"
+              checked
+            />
+            <label class="form-check-label" for="flexRadioDefault1">
+              Full Search
+            </label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="chkbox"
+              id="recentCheckBox"
+              onclick="checkClick()"
+              value="1"
+            />
+            <label class="form-check-label" for="flexRadioDefault2">
+              Recent Search
+            </label>
+          </div>
+          <!-------------------------- Inputs ------------------------------>
+          <label for="formGroupExampleInput">Query</label>
+          <input
+            type="text"
+            class="form-control"
+            name="query"
+            id="query"
+            placeholder="Insira a query de busca"
+            required="true"
+          />
+          <label for="inputState">Idioma</label>
+          <select
+            name="idioma"
+            id="idioma"
+            class="form-control"
+            required="true"
+          >
+            <option selected value="-1">Qualquer idioma</option>
+            <option value="pt">Português</option>
+            <option value="en">Inglês</option>
+            <option value="es">Espanhol</option>
+          </select>
 
-                  <!------ Date Input ------>
-                        
-                        <script>
-                          $(function () {
-                            $("#datepicker").datepicker({ format: "dd/mm/yyyy" });
-                            $("#datepicker2").datepicker({ format: "dd/mm/yyyy" });
-                          });
-                        </script>
-                        
+          <label for="formGroupExampleInput">Data Inicial</label>
+          <input
+            type="text"
+            class="form-control"
+            name="datepicker"
+            id="datepicker"
+            required="true"
+          />
+          <label for="formGroupExampleInput">Data Final</label>
+          <input
+            type="text"
+            class="form-control"
+            name="datepicker2"
+            id="datepicker2"
+            required="true"
+          />
 
-                  <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
-      </div>
+          <br />
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value="1"
+              name="retweets_chk"
+              id="retweets_chk"
+              checked
+            />
+            <label class="form-check-label" for="flexCheckChecked">
+              Incluir Retweets
+            </label>
+          </div>
+          
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value="1"
+              name="replies_chk"
+              id="replies_chk"
+              checked
+            />
+            <label class="form-check-label" for="flexCheckChecked">
+              Incluir Replies
+            </label>
+          </div>
+
+          <br />
+          <button id="myBtn" type="submit" class="btn btn-primary">
+            Submit
+          </button>
+        </div>
+      </form>
     </div>
   </body>
 </html>

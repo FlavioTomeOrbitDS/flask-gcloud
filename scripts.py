@@ -7,11 +7,11 @@ from flask import Response
 
 
  # export excel file
-def exportexcelfile(df_output):
+def exportexcelfile(df_output, filename):
         buffer = BytesIO()        
         df_output.to_excel(buffer)
         headers = {
-             'Content-Disposition': 'attachment; filename=output.xlsx',
+             'Content-Disposition': 'attachment; filename={}.xlsx'.format(filename),
              'Content-type': 'application/vnd.ms-excel'
         }
         
@@ -202,7 +202,7 @@ def getTweetsRecentCount(query,lang):
         query = query + ' lang:'+lang
         
     # first execution without 'next' param
-    params = {'query': query}
+    params = {'query': query, 'granularity':"day"}
     
     url = 'https://api.twitter.com/2/tweets/counts/recent'
 
@@ -247,7 +247,7 @@ def getTweetsRecentCount(query,lang):
         if lang != "-1":
             query = query + ' lang:'+lang
             
-        params = {'query': query, 'next':next_token }
+        params = {'query': query, 'granularity':"day", 'next':next_token }
         url = "https://api.twitter.com/2/tweets/counts/recent"
 
         response = requests.get(url, headers=header, params=params)
