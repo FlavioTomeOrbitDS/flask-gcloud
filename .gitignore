@@ -1,3 +1,5 @@
 .gcloudignore   
 /venv
 venv
+/test.py
+/test2.ipynb

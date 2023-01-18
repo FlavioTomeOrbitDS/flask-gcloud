@@ -68,14 +68,14 @@ def getTweetsFullArchive(query,lang,fromDate, toDate):
               'fromDate': fromDate, 'toDate': toDate}
     url = 'https://api.twitter.com/1.1/tweets/search/fullarchive/full.json'
     
-    requests_count = requests_count + 1
+    requests_count += 1
     
     response = requests.get(url, headers=header, params=params)
     
     print(response.request.url)
     print(response.request.body)
     print(response.request.headers)
-    print(response)
+    print("request n.: "+str(requests_count)+" resp code: "+ str(response))
     
     json = response.json()
     try:
@@ -92,14 +92,22 @@ def getTweetsFullArchive(query,lang,fromDate, toDate):
         print('no more pages')
 
     # loop to get response for the endpoint whith next parameter
-    while next_token != ' ' and requests_count <=3 :
-        requests_count = requests_count + 1
+    while next_token != ' ':        
         
         params = {'query': query, 'maxResults': '500',
                   'fromDate': fromDate, 'toDate': toDate, 'next': next_token}
         url = 'https://api.twitter.com/1.1/tweets/search/fullarchive/full.json'
+        
+        
+        requests_count += 1
+        if requests_count >= 5:
+            return df1
+        
         response = requests.get(url, headers=header, params=params)
-        print(response)
+        
+        print(response.request.url)
+        print("request n.: "+str(requests_count)+" resp code: "+ str(response))
+        
         json = response.json()
         df2 = pd.DataFrame(json['results'])
         df1 = pd.concat([df1, df2])
@@ -328,6 +336,9 @@ def getRecentTweets(query,lang):
         url = 'https://api.twitter.com/2/tweets/search/recent'            
         
         requests_count += 1
+        # max number of requests
+        if requests_count > 100:
+            return df1
         
         response = requests.get(url, headers=header, params=params)
         
