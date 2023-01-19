@@ -29,22 +29,39 @@ def getDaysBetweenDates(date1, date2):
 
 
 #---------------------------------------- FORMAT DATES -----------------------------------------
-def formatDates(dt1, dt2):
+def formatDates(dt1, dt2, searchtype):
     
-    dia,mes,ano = dt1.split('/')
-    fromDate = ano+mes+dia+"0000"
-    
-    
-    dia,mes,ano = dt2.split('/')
-    hour = str(datetime.now().hour)
-    if len(hour) < 2:
-        hour= '0'+hour
-    minute = str(datetime.now().minute)
-    if len(minute) < 2:
-        minute= '0'+minute
-    
-    toDate = ano+mes+dia+hour+minute
-    
+    if searchtype == 'full':
+        
+        dia,mes,ano = dt1.split('/')
+        fromDate = ano+mes+dia+"0000"
+        
+        
+        dia,mes,ano = dt2.split('/')
+        hour = str(datetime.now().hour)
+        if len(hour) < 2:
+            hour= '0'+hour
+        minute = str(datetime.now().minute)
+        if len(minute) < 2:
+            minute= '0'+minute
+        
+        toDate = ano+mes+dia+hour+minute
+    else:
+        # recent search
+        dia,mes,ano = dt1.split('/')
+        fromDate = ano+"-"+mes+"-"+dia+"T"+"00:00:00.52Z"
+        
+        
+        dia,mes,ano = dt2.split('/')
+        hour = str(datetime.now().hour)
+        if len(hour) < 2:
+            hour= '0'+hour
+        minute = str(datetime.now().minute)
+        if len(minute) < 2:
+            minute= '0'+minute
+        
+        toDate = ano+"-"+mes+"-"+dia+"T"+hour+":"+minute+":"+"00.52Z"
+        
     return fromDate, toDate
 
 #------------------------------------  GET TWEETS -----------------------------------
@@ -287,7 +304,7 @@ def getTweetsRecentCount(query,lang):
     return df1
 
 #-------------------------------------  GET RECENT TWEETS ------------------------------------
-def getRecentTweets(query,lang):
+def getRecentTweets(query,lang,fromDate, toDate):
     #requests counter:
     requests_count = 0
     
@@ -299,7 +316,7 @@ def getRecentTweets(query,lang):
         query = query + ' lang:'+lang
         
     # first execution without 'next' param
-    params = {'query': query, 'max_results': '100'}
+    params = {'query': query, 'max_results': '100', 'start_time':fromDate, 'end_time': toDate,'tweet.fields': 'created_at'}
         
     url = 'https://api.twitter.com/2/tweets/search/recent'            
     
@@ -331,7 +348,7 @@ def getRecentTweets(query,lang):
     # loop to get response for the endpoint whith next parameter
     while next_token != ' ' :
 
-        params = {'query': query,'next_token': next_token, 'max_results': '100'}
+        params = {'query': query,'next_token': next_token, 'max_results': '100', 'start_time':fromDate, 'end_time': toDate,'tweet.fields': 'created_at'}
         
         url = 'https://api.twitter.com/2/tweets/search/recent'            
         
