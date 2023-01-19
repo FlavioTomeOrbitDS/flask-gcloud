@@ -27,17 +27,34 @@ def tweetscount():
             q = q + " -is:reply"        
                 
         lang = request.form['idioma']
+        
+        # get dates
+        dt1 = request.form['datepicker']
+        dt2 = request.form['datepicker2']    
               
         # gets the value from checkbox
         chk = request.form.getlist('chkbox')
+        
+        currentDate = datetime.now()
+        
         #if value == 0, then do the recent search
-        if chk[0] == '1':                    
-            df_output = getTweetsRecentCount(q, lang)
+        if chk[0] == '1':     
+            fromDate, toDate = formatDates(dt1,dt2,'recent')                        
+            # Dates vefification
+            if getDaysBetweenDates(dt1, currentDate.strftime("%d/%m/%Y")) > 7:
+                flash('Atenção! A opção "Recent Search" somente busca tweets dos últimos 7 dias! Verifique a Data Inicial! ')               
+                return render_template('index.html')
+            elif dt2 > currentDate.strftime("%d/%m/%Y"):
+                flash('Atenção! A o parâmetro Data Final é maior que a Data Atual.')               
+                return render_template('index.html')                
+            df_output = getTweetsRecentCount(q, lang, fromDate, toDate)
         else:
-        # full search            
-            dt1 = request.form['datepicker']
-            dt2 = request.form['datepicker2']    
-            fromDate, toDate = formatDates(dt1,dt2)                                            
+        # full search                        
+            fromDate, toDate = formatDates(dt1,dt2,'full')  
+            
+            if dt2 > currentDate.strftime("%d/%m/%Y"):
+                flash('Atenção! A o parâmetro Data Final é maior que a Data Atual.')               
+                          
             df_output = getTweetsCount(q,lang, fromDate, toDate)   
                         
         return exportexcelfile(df_output,filename)

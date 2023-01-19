@@ -215,7 +215,7 @@ def getTweetsCount(query,lang,fromDate, toDate):
 
 #----------------------------------------- RECENT TWEETS COUNT ------------------------------------------
 
-def getTweetsRecentCount(query,lang):        
+def getTweetsRecentCount(query,lang,fromDate, toDate):        
     
     requests_count = 0     
     
@@ -227,7 +227,7 @@ def getTweetsRecentCount(query,lang):
         query = query + ' lang:'+lang
         
     # first execution without 'next' param
-    params = {'query': query, 'granularity':"day"}
+    params = {'query': query, 'granularity':"day",'start_time':fromDate, 'end_time': toDate}
     
     url = 'https://api.twitter.com/2/tweets/counts/recent'
 
@@ -272,7 +272,7 @@ def getTweetsRecentCount(query,lang):
         if lang != "-1":
             query = query + ' lang:'+lang
             
-        params = {'query': query, 'granularity':"day", 'next':next_token }
+        params = {'query': query, 'granularity':"day", 'next':next_token,'start_time':fromDate, 'end_time': toDate }
         url = "https://api.twitter.com/2/tweets/counts/recent"
 
         response = requests.get(url, headers=header, params=params)

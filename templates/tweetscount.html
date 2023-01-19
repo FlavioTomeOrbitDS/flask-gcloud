@@ -48,29 +48,7 @@
           null
         ).singleNodeValue;
       }
-      function checkClick() {
-        chk = document.getElementById("fullCheckBox");
-        if (chk.checked == true) {
-          label = getElementByXpath("/html/body/div/form/div/label[3]");
-          label.style.display = "block";
-          label = getElementByXpath("/html/body/div/form/div/label[4]");
-          label.style.display = "block";
-          document.getElementById("datepicker").style.display = "block";
-          document.getElementById("datepicker2").style.display = "block";
-          document.getElementById("datepicker").required = true;
-          document.getElementById("datepicker2").required = true;
-        } else {
-          label = getElementByXpath("/html/body/div/form/div/label[3]");
-          label.style.display = "none";
-          label = getElementByXpath("/html/body/div/form/div/label[4]");
-          label.style.display = "none";
-          document.getElementById("datepicker").style.display = "none";
-          document.getElementById("datepicker2").style.display = "none";
-          document.getElementById("datepicker").required = false;
-          document.getElementById("datepicker2").required = false;
-        }
-      }
-
+            
       $(function () {
         $("#datepicker").datepicker({ format: "dd/mm/yyyy" });
         $("#datepicker2").datepicker({ format: "dd/mm/yyyy" });
@@ -127,27 +105,24 @@
               class="form-check-input"
               type="radio"
               name="chkbox"
-              id="fullCheckBox"
-              onclick="checkClick()"
-              value="0"
+              id="recentCheckBox"
+              value="1"
               checked
             />
-            <label class="form-check-label" for="flexRadioDefault1">
-              Full Search
+            <label class="form-check-label" for="flexRadioDefault2">
+              Recent Search
             </label>
           </div>
-          
           <div class="form-check">
             <input
               class="form-check-input"
               type="radio"
               name="chkbox"
-              id="recentCheckBox"
-              onclick="checkClick()"
-              value="1"
+              id="fullCheckBox"
+              value="0"              
             />
-            <label class="form-check-label" for="flexRadioDefault2">
-              Recent Search
+            <label class="form-check-label" for="flexRadioDefault1">
+              Full Search
             </label>
           </div>
           
