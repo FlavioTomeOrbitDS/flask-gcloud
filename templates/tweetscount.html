@@ -48,20 +48,48 @@
           null
         ).singleNodeValue;
       }
-            
+
       $(function () {
         $("#datepicker").datepicker({ format: "dd/mm/yyyy" });
         $("#datepicker2").datepicker({ format: "dd/mm/yyyy" });
       });
     </script>
+
+    <style>
+      label {
+        font-weight: bold;
+        color: darkslategrey;
+      }
+      a {
+        transition: color 0.3s;
+        font-weight: bold;
+      }
+      a:hover {
+        color: #367fbf !important;
+      }
+
+      li {
+        margin-left: 45px;
+      }
+    </style>
   </head>
 
   <title>Orbit Tweets Search</title>
   <body>
     <!--NAV BAR-->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav
+      class="navbar navbar-expand-lg navbar-dark bg-dark"
+      style="background-color: #1d2840 !important"
+    >
       <div class="container-fluid">
-        <a class="navbar-brand" href="#"></a>
+        <a class="navbar-brand" href="#">
+          <img
+            src="https://storage.googleapis.com/orbit-logo/ORBIT%20-%20LOGOTIPO%20-%20HORIZONTAL%205.png"
+            width="auto"
+            height="100"
+            alt=""
+          />
+        </a>
         <button
           class="navbar-toggler"
           type="button"
@@ -77,15 +105,35 @@
           class="collapse navbar-collapse justify-content-md-center"
           id="navbarSupportedContent"
         >
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/"
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="/"
+                font-height:
+                bold;
                 >Tweets Search</a
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/tweetscount"
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="/tweetscount"
+                font-height:
+                bold;
                 >Tweets Count</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="/logout"
+                font-height:
+                bold;
+                >Sair</a
               >
             </li>
           </ul>
@@ -96,7 +144,7 @@
     <!-------------------------- FORM ------------------------------>
     <div class="container">
       <br />
-      <h2>Tweets Count</h2>
+      <h2 style="color: #367fbf; font-weight: bold">Tweets Count</h2>
       <form method="post" name="form1">
         <div class="form-group">
           <!-------------------------- checkbox ------------------------------>
@@ -119,13 +167,13 @@
               type="radio"
               name="chkbox"
               id="fullCheckBox"
-              value="0"              
+              value="0"
             />
             <label class="form-check-label" for="flexRadioDefault1">
               Full Search
             </label>
           </div>
-          
+
           <!-------------------------- Inputs ------------------------------>
           <label for="formGroupExampleInput">Query</label>
           <input
@@ -180,7 +228,7 @@
               Incluir Retweets
             </label>
           </div>
-          
+
           <div class="form-check">
             <input
               class="form-check-input"
@@ -197,7 +245,7 @@
 
           <br />
           <button id="myBtn" type="submit" class="btn btn-primary">
-            Submit
+            Go!
           </button>
         </div>
       </form>
