@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 app.secret_key = "myscrtky"
 
-user = {"username": "orbit", "password":"xyz"}
+user = {"username": "@orbitdatascience", "password":"psswd@0123"}
 
 #-------------------------------------- TWEETS COUNT -------------------------------------------
 @app.route("/tweetscount", methods=['GET', 'POST'])
