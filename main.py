@@ -53,14 +53,26 @@ def tweetscount():
                 df_output = getTweetsRecentCount(q, lang, fromDate, toDate)
             else:
             # full search                        
+                include_geo = request.form.get("coordinates_chk")
+                if include_geo == '1':
+                    print("usando coordenadaas")
+                    lat = request.form['lat_input']
+                    long = request.form['long_input']
+                    radius = request.form['radius_input']
+                else:
+                    print("Sem usar coord")
+                    lat='-1'                                                             
+                    long="-1"
+                    radius="-1"
+                    
                 fromDate, toDate = formatDates(dt1,dt2,'full')  
                 
                 if dt2 > currentDate.strftime("%d/%m/%Y"):
                     flash('Atenção! A o parâmetro Data Final é maior que a Data Atual.')               
                             
-                df_output = getTweetsCount(q,lang, fromDate, toDate)   
+                df_output = getTweetsCount(q,lang, fromDate, toDate,lat,long,radius)   
                             
-            return exportexcelfile(df_output,filename)
+            return exportexcelfile(df_output,filename)            
     else:
         # user not logged
         flash('É necessário fazer o login!')               
@@ -115,13 +127,25 @@ def index():
                 df_output = getRecentTweets(q, lang,fromDate,toDate)            
             else:
             # full search                        
+                include_geo = request.form.get("coordinates_chk")
+                if include_geo == '1':
+                    print("usando coordenadaas")
+                    lat = request.form['lat_input']
+                    long = request.form['long_input']
+                    radius = request.form['radius_input']
+                else:
+                    print("Sem usar coord")
+                    lat='-1'                                                             
+                    long="-1"
+                    radius="-1"
+                
                 fromDate, toDate = formatDates(dt1,dt2,'full')                                            
                 
                 if dt2 > currentDate.strftime("%d/%m/%Y"):
                     flash('Atenção! A o parâmetro Data Final é maior que a Data Atual.')               
                     return render_template('index.html')            
                 
-                df_output = getTweetsFullArchive(q,lang, fromDate, toDate)   
+                df_output = getTweetsFullArchive(q,lang, fromDate, toDate,lat,long,radius)   
                             
             return exportexcelfile(df_output,filename)
     else:

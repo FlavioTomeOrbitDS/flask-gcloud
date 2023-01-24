@@ -50,12 +50,38 @@
         $("#datepicker").datepicker({ format: "dd/mm/yyyy" });
         $("#datepicker2").datepicker({ format: "dd/mm/yyyy" });
       });
+
+      function setCoordInputsStatus() {
+        if (document.getElementById("coordinates_chk").checked == true) {
+          document.getElementById("lat_input").removeAttribute("disabled");
+          document.getElementById("long_input").removeAttribute("disabled");
+          document.getElementById("radius_input").removeAttribute("disabled");
+          document.getElementById("lat_input").removeAttribute("required");
+          document.getElementById("long_input").removeAttribute("required");
+          document.getElementById("radius_input").removeAttribute("required");
+        } else {
+          document.getElementById("lat_input").setAttribute("disabled", "true");
+          document
+            .getElementById("long_input")
+            .setAttribute("disabled", "true");
+          document
+            .getElementById("radius_input")
+            .setAttribute("disabled", "true");
+          document.getElementById("lat_input").setAttribute("required", "true");
+          document
+            .getElementById("long_input")
+            .setAttribute("required", "true");
+          document
+            .getElementById("radius_input")
+            .setAttribute("required", "true");
+        }
+      }
     </script>
 
     <style>
       label {
         font-weight: bold;
-        color:darkslategrey; ; 
+        color: darkslategrey;
       }
       a {
         transition: color 0.3s;
@@ -121,7 +147,6 @@
             <li class="nav-item">
               <a
                 class="nav-link active"
-
                 aria-current="page"
                 href="/logout"
                 style="font-weight: bold"
@@ -218,6 +243,63 @@
             id="datepicker2"
             required="true"
           />
+          <br />
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value="1"
+              name="coordinates_chk"
+              id="coordinates_chk"
+              onclick="setCoordInputsStatus()"
+            />
+            <label class="form-check-label" for="flexCheckChecked">
+              Usar coordenadas geográficas
+            </label>
+          </div>
+
+          <div class="row">
+            <div class="col-5">
+              <label for="inputState">Latitude</label>
+              <input
+                type="number"
+                step="0.000001"
+                class="form-control"
+                placeholder="0.0000"
+                name="lat_input"
+                id="lat_input"
+                disabled
+                required
+              />
+            </div>
+            <div class="col-5">
+              <label for="inputState">Longitude</label>
+              <input
+                type="number"
+                step="0.000001"
+                class="form-control"
+                name="long_input"
+                id="long_input"
+                placeholder="0.0000"
+                disabled
+                required
+              />
+            </div>
+            <div class="col-2">
+              <label for="inputState">Raio (km)</label>
+              <input
+                type="number"
+                min="1"
+                max="40"
+                class="form-control"
+                name="radius_input"
+                id="radius_input"
+                placeholder="max. 40km"
+                disabled
+                required
+              />
+            </div>
+          </div>
 
           <br />
           <div class="form-check">
@@ -227,7 +309,6 @@
               value="1"
               name="retweets_chk"
               id="retweets_chk"
-              checked
             />
             <label class="form-check-label" for="flexCheckChecked">
               Incluir Retweets
@@ -241,7 +322,6 @@
               value="1"
               name="replies_chk"
               id="replies_chk"
-              checked
             />
             <label class="form-check-label" for="flexCheckChecked">
               Incluir Replies
@@ -249,9 +329,7 @@
           </div>
 
           <br />
-          <button id="myBtn" type="submit" class="btn btn-primary">
-            Go!
-          </button>
+          <button id="myBtn" type="submit" class="btn btn-primary">Go!</button>
         </div>
       </form>
     </div>
