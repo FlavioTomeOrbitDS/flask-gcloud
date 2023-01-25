@@ -76,6 +76,10 @@
             .setAttribute("required", "true");
         }
       }
+
+      function hideCoordInputs(flag){        
+        document.getElementById("fullsearch_div").style.display = flag
+      }
     </script>
 
     <style>
@@ -185,8 +189,10 @@
               type="radio"
               name="chkbox"
               id="recentCheckBox"
+              name="recentCheckBox"
               value="1"
               checked
+              onclick="hideCoordInputs('none')"
             />
             <label class="form-check-label" for="flexRadioDefault2">
               Recent Search
@@ -199,12 +205,14 @@
               name="chkbox"
               id="fullCheckBox"
               value="0"
+              onclick="hideCoordInputs('block')"
             />
             <label class="form-check-label" for="flexRadioDefault1">
               Full Search
             </label>
           </div>
-          <!-------------------------- Inputs ------------------------------>
+        </br>
+          <!-------------------------- Query ------------------------------>
           <label for="formGroupExampleInput">Query</label>
           <input
             type="text"
@@ -214,6 +222,7 @@
             placeholder="Insira a query de busca"
             required="true"
           />
+          <!-------------------------- Idioma ------------------------------>
           <label for="inputState">Idioma</label>
           <select
             name="idioma"
@@ -222,11 +231,12 @@
             required="true"
           >
             <option selected value="-1">Qualquer idioma</option>
-            <option value="pt">Português</option>
-            <option value="en">Inglês</option>
-            <option value="es">Espanhol</option>
+            {% for l in languages%}
+            <option value="{{l}}">{{languages[l]}}</option>
+            {% endfor %}
           </select>
 
+          <!-------------------------- Datas ------------------------------>
           <label for="formGroupExampleInput">Data Inicial</label>
           <input
             type="text"
@@ -243,7 +253,24 @@
             id="datepicker2"
             required="true"
           />
+
+          <div id="fullsearch_div" style="display : none">
+          <!-------------------------- País ------------------------------>
+          <label id="country_label" for="inputState">País</label>
+          <select            
+            name="country_input"
+            id="country_input"
+            class="form-control"
+            required="true"
+          >
+            <option selected value="-1">- Qualquer país -</option>
+            {% for c in countries%}
+            <option value="{{c}}">{{countries[c]}}</option>
+            {% endfor %}
+          </select>
+
           <br />
+          <!-------------------------- Coordenadas ------------------------------>
           <div class="form-check">
             <input
               class="form-check-input"
@@ -253,12 +280,12 @@
               id="coordinates_chk"
               onclick="setCoordInputsStatus()"
             />
-            <label class="form-check-label" for="flexCheckChecked">
+            <label id="coord_label" class="form-check-label" for="flexCheckChecked">
               Usar coordenadas geográficas
             </label>
           </div>
 
-          <div class="row">
+          <div id="coord_div" class="row">
             <div class="col-5">
               <label for="inputState">Latitude</label>
               <input
@@ -300,7 +327,7 @@
               />
             </div>
           </div>
-
+          </div>
           <br />
           <div class="form-check">
             <input

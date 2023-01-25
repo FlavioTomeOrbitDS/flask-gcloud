@@ -66,7 +66,7 @@ def formatDates(dt1, dt2, searchtype):
 
 #------------------------------------  GET TWEETS -----------------------------------
 
-def getTweetsFullArchive(query,lang,fromDate, toDate, lat, long, radius):
+def getTweetsFullArchive(query,lang,fromDate, toDate, lat, long, radius,country):
     # use the full archive endpoint from twitter api;
     # fromDate and toDate format: '202208250000'
     
@@ -79,9 +79,12 @@ def getTweetsFullArchive(query,lang,fromDate, toDate, lat, long, radius):
 
     if lang != '-1':
         query = query + ' lang:'+lang
+    
+    if country != "-1":
+        query = query + ' place_country:'+country
         
     # Search using coordinated:  point_radius:[2.355128 48.861118 16km]
-    if lat != "":
+    if lat != "-1":
         query = query + " point_radius:["+long+" "+lat+" "+radius+"km]"
         
     # first execution without 'next' param
@@ -145,13 +148,16 @@ def getTweetsFullArchive(query,lang,fromDate, toDate, lat, long, radius):
 
 #------------------------------------------ TWEETS COUNT ------------------------------------------
 
-def getTweetsCount(query,lang,fromDate, toDate, lat, long, radius):        
+def getTweetsCount(query,lang,fromDate, toDate, lat, long, radius,country):        
     # token from autorization
     bearer_token = "AAAAAAAAAAAAAAAAAAAAAA5chgEAAAAA73XpwdJWFyAei9XfNvs%2Fk1vTOws%3DNdKfgnK84FLwadYmIbbGRdr1JeW1aOtJSbCEUi9Rly85VqeM1w"
     header = {"Authorization": 'bearer ' + bearer_token}
 
     if lang != "-1":
         query = query + ' lang:'+lang
+    
+    if country != "-1":
+        query = query + ' place_country:'+country
         
     # Search using coordinated:  point_radius:[2.355128 48.861118 16km]
     if lat != "-1":

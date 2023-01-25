@@ -79,6 +79,10 @@
         $("#datepicker").datepicker({ format: "dd/mm/yyyy" });
         $("#datepicker2").datepicker({ format: "dd/mm/yyyy" });
       });
+
+      function hideCoordInputs(flag){        
+        document.getElementById("fullsearch_div").style.display = flag
+      };
     </script>
 
     <style>
@@ -182,6 +186,7 @@
               id="recentCheckBox"
               value="1"
               checked
+              onclick="hideCoordInputs('none')"
             />
             <label class="form-check-label" for="flexRadioDefault2">
               Recent Search
@@ -194,12 +199,13 @@
               name="chkbox"
               id="fullCheckBox"
               value="0"
+              onclick="hideCoordInputs('block')"
             />
             <label class="form-check-label" for="flexRadioDefault1">
               Full Search
             </label>
           </div>
-
+          </br>
           <!-------------------------- Inputs ------------------------------>
           <label for="formGroupExampleInput">Query</label>
           <input
@@ -218,9 +224,9 @@
             required="true"
           >
             <option selected value="-1">Qualquer idioma</option>
-            <option value="pt">Português</option>
-            <option value="en">Inglês</option>
-            <option value="es">Espanhol</option>
+            {% for l in languages%}
+            <option value="{{l}}">{{languages[l]}}</option>
+            {% endfor %}
           </select>
 
           <label for="formGroupExampleInput">Data Inicial</label>
@@ -239,7 +245,20 @@
             id="datepicker2"
             required="true"
           />
-          
+          <div id="fullsearch_div" style="display : none"> 
+          <label for="inputState">País</label>
+          <select
+            name="country_input"
+            id="country_input"
+            class="form-control"
+            required="true"
+          >
+            <option selected value="-1">- Qualquer país -</option>
+            {% for c in countries%}
+            <option value="{{c}}">{{countries[c]}}</option>
+            {% endfor %}
+          </select>
+
           <br />
 
           <div class="form-check">
@@ -298,7 +317,7 @@
               />
             </div>
           </div>
-
+          </div>
           <br />
           <div class="form-check">
             <input
