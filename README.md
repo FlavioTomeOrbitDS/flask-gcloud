@@ -8,8 +8,7 @@ Foi desenvolvido utilizando o Framework Flask na versão 2.2.2
 Nessa versão 1.0, o Front End e o Back End da aplicação foram desenvolvidos no mesmo projeto.
 Os arquivos html, bem como os arquivos de estilo e javascript estão na pasta **templates**
 Já as configurações de rota, connexão com a API do Twitter e demais funções encontram-se nos arquivos **main.py** e **scripts.py**
-
-.
+```
 ├── flask-gcloud/
 │   ├── static/
 |   |    ├──logo-orbit.jpeg
@@ -24,8 +23,7 @@ Já as configurações de rota, connexão com a API do Twitter e demais funçõe
 |   ├── main.py
 |   ├── requirements.txt
 |   ├── scripts.py
-
-
+```
 ## Instalação e configuração
 ---
 #### Pré-Requisitos
