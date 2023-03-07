@@ -2,6 +2,29 @@
 ## Descrição do Projeto:
 ---
 Orbit Tweets Search é um projeto de aplicação web que permite ao usuário exportar tweets por meio de vários parâmetros e filtros presentes em uma página web, que se conecta à API oficial do Twitter para a extração desses dados. 
+Foi desenvolvido utilizando o Framework Flask na versão 2.2.2
+
+### Estrutura do Projeto
+Nessa versão 1.0, o Front End e o Back End da aplicação foram desenvolvidos no mesmo projeto.
+Os arquivos html, bem como os arquivos de estilo e javascript estão na pasta **templates**
+Já as configurações de rota, connexão com a API do Twitter e demais funções encontram-se nos arquivos **main.py** e **scripts.py**
+
+.
+├── flask-gcloud/
+│   ├── static/
+|   |    ├──logo-orbit.jpeg
+|   ├── templates/
+|   |    ├──index.html
+|   |    ├──login.html
+|   |    ├──tweetscount.html
+|   ├── venv/
+|   ├── .gitignore
+|   ├── app.py
+|   ├── app.yaml
+|   ├── main.py
+|   ├── requirements.txt
+|   ├── scripts.py
+
 
 ## Instalação e configuração
 ---
