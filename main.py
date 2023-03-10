@@ -289,6 +289,22 @@ countries = {
   "ZW": "Zimbabwe"
 }
 
+def verifica_datas(dt1, dt2):
+   # Verify the dates informed by user
+    print('verificando datas!')
+    current_date = datetime.now()
+    current_date_str = current_date.strftime("%d/%m/%Y")
+    if compare_dates(dt1,current_date_str) == 'later' :                                        
+        flash('Atenção! A o parâmetro Data Inicial é maior que a Data Atual.')               
+        #return render_template('index.html') 
+        return 0
+    if compare_dates(dt1,dt2) == 'later':
+        flash('Atenção! A o parâmetro Data Final é maior que a Data Inicial.')               
+        #return render_template('index.html')  
+        return 0
+    
+    return 1
+
 #-------------------------------------- TWEETS COUNT -------------------------------------------
 @app.route("/tweetscount", methods=['GET', 'POST'])
 def tweetscount():
@@ -329,10 +345,11 @@ def tweetscount():
                 # Dates vefification
                 if getDaysBetweenDates(dt1, currentDate.strftime("%d/%m/%Y")) > 7:
                     flash('Atenção! A opção "Recent Search" somente busca tweets dos últimos 7 dias! Verifique a Data Inicial! ')               
-                    return render_template('index.html')
-                elif dt2 > currentDate.strftime("%d/%m/%Y"):
-                    flash('Atenção! A o parâmetro Data Final é maior que a Data Atual.')               
-                    return render_template('index.html')                
+                    return render_template('tweetscount.html')
+                
+                if verifica_datas(dt1,dt2)==0:
+                   return render_template('tweetscount.html')              
+               
                 df_output = getTweetsRecentCount(q, lang, fromDate, toDate)
             else:
             # full search                        
@@ -350,9 +367,9 @@ def tweetscount():
                     
                 fromDate, toDate = formatDates(dt1,dt2,'full')  
                 
-                if dt2 > currentDate.strftime("%d/%m/%Y"):
-                    flash('Atenção! A o parâmetro Data Final é maior que a Data Atual.')               
-                            
+                if verifica_datas(dt1,dt2)==0:
+                   return render_template('tweetscount.html')  
+                           
                 df_output = getTweetsCount(q,lang, fromDate, toDate,lat,long,radius,country)   
                             
             return exportexcelfile(df_output,filename)            
@@ -405,9 +422,14 @@ def index():
                 if getDaysBetweenDates(dt1, currentDate.strftime("%d/%m/%Y")) > 7:
                     flash('Atenção! A opção "Recent Search" somente busca tweets dos últimos 7 dias! Verifique a Data Inicial! ')               
                     return render_template('index.html')
-                elif dt2 > currentDate.strftime("%d/%m/%Y"):
-                    flash('Atenção! A o parâmetro Data Final é maior que a Data Atual.')               
-                    return render_template('index.html')            
+                
+                if verifica_datas(dt1,dt2)==0:
+                   return render_template('index.html')  
+                
+                
+                # elif dt2 > currentDate.strftime("%d/%m/%Y"):
+                #     flash('Atenção! A o parâmetro Data Final é maior que a Data Atual.')               
+                #     return render_template('index.html')            
                                                             
                 df_output = getRecentTweets(q, lang,fromDate,toDate)            
             else:
@@ -426,13 +448,13 @@ def index():
                 
                 fromDate, toDate = formatDates(dt1,dt2,'full')                                            
                 
-                if dt2 > currentDate.strftime("%d/%m/%Y"):
-                    flash('Atenção! A o parâmetro Data Final é maior que a Data Atual.')               
-                    return render_template('index.html')            
+                if verifica_datas(dt1,dt2)==0:
+                   return render_template('index.html')  
                 
                 df_output = getTweetsFullArchive(q,lang, fromDate, toDate,lat,long,radius,country)   
                             
             return exportexcelfile(df_output,filename)
+            #return render_template('index.html') 
     else:
         # user not logged
         flash('É necessário fazer o login!')               

@@ -5,6 +5,26 @@ from datetime import datetime
 from flask import Response
 
 
+def compare_dates(date_1, date_2):
+    """
+    Compare two date strings and return whether date A is equal, earlier, or later than date B.
+    
+    Args:
+        date_a_str (str): A string representing the first date in 'YYYY-MM-DD' format.
+        date_b_str (str): A string representing the second date in 'YYYY-MM-DD' format.
+    
+    Returns:
+        str: 'equal' if date A is the same as date B, 'earlier' if date A is earlier than date B, and 'later' if date A is later than date B.
+    """
+    date_a = datetime.strptime(date_1, "%d/%m/%Y").date()
+    date_b = datetime.strptime(date_2, "%d/%m/%Y").date()
+    
+    if date_a < date_b:
+        return 'earlier'
+    elif date_a > date_b:
+        return 'later'
+    else:
+        return 'equal'
 
  # export excel file
 def exportexcelfile(df_output, filename):
