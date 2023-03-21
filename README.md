@@ -25,7 +25,7 @@ Já as configurações de rota, connexão com a API do Twitter e demais funçõe
 |   ├── scripts.py                  # Arquivo com as funções globais da aplicação
 ```
 ## Telas da Aplicação
-
+---
 ### Login Page:
 
 ![Login Page](https://user-images.githubusercontent.com/115179333/226707926-93e0b2e8-9660-440c-9e35-510017c9e9ee.png)
@@ -95,7 +95,7 @@ gcloud app deploy
 6. Após o deploy ser concluído com sucesso, acesse a URL fornecida pelo Google App Engine para visualizar a sua aplicação Flask.
 
 ## Principais Métodos
-
+---
 ### getTweetsFullArchive():
 
 Método responsável por realizar buscas utilizando a API do Twitter através do endpoint full archive. Esse método recebe como parâmetros:
