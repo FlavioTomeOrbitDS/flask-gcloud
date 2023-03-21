@@ -10,19 +10,19 @@ Os arquivos html, bem como os arquivos de estilo e javascript estão na pasta **
 Já as configurações de rota, connexão com a API do Twitter e demais funções encontram-se nos arquivos **main.py** e **scripts.py**
 ```
 ├── flask-gcloud/
-│   ├── static/
-|   |    ├──logo-orbit.jpeg
-|   ├── templates/
-|   |    ├──index.html
-|   |    ├──login.html
-|   |    ├──tweetscount.html
-|   ├── venv/
+│   ├── static/                     # pasta que contém os arquivos estáticos da aplicação  
+|   |    ├──logo-orbit.jpeg         # arquivo com o logotipo da Orbit Data Science
+|   ├── templates/                  # Pasta que contém os arquivos HTML da aplicação
+|   |    ├──index.html              # Página Principal da aplicação. Possui as opções para fazer o Tweets Serarch
+|   |    ├──login.html              # Página de Login
+|   |    ├──tweetscount.html        # Página com as opções de Tweets Count
+|   ├── venv/                           
 |   ├── .gitignore
 |   ├── app.py
-|   ├── app.yaml
-|   ├── main.py
-|   ├── requirements.txt
-|   ├── scripts.py
+|   ├── app.yaml                    # Arquivo com as configurações para fazer o deploy no Google Cloud
+|   ├── main.py                       
+|   ├── requirements.txt            # Arquivo que lista os módulos necessários para o projeto
+|   ├── scripts.py                  # Arquivo com as funções globais da aplicação
 ```
 ## Instalação e configuração
 ---
