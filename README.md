@@ -24,6 +24,20 @@ Já as configurações de rota, connexão com a API do Twitter e demais funçõe
 |   ├── requirements.txt            # Arquivo que lista os módulos necessários para o projeto
 |   ├── scripts.py                  # Arquivo com as funções globais da aplicação
 ```
+## Telas da Aplicação
+
+### Login Page:
+
+![Login Page](https://user-images.githubusercontent.com/115179333/226707926-93e0b2e8-9660-440c-9e35-510017c9e9ee.png)
+
+### Index Page:
+![Index Page](https://user-images.githubusercontent.com/115179333/226708353-7b93ed0e-ac02-40f1-a9da-c43156249588.png)
+
+### Tweets Count Page:
+![Tweets Count Page](https://user-images.githubusercontent.com/115179333/226708420-d6e0cd4c-7c7b-4231-bb9a-c5c6f3fb7401.png)
+
+
+
 ## Instalação e configuração
 ---
 #### Pré-Requisitos
@@ -79,19 +93,6 @@ gcloud app deploy
 5. O comando acima vai iniciar o processo de deploy da aplicação no Google App Engine. Caso seja a primeira vez que você esteja fazendo deploy, será necessário fazer login na sua conta do Google Cloud Platform e selecionar o projeto onde você deseja implantar a aplicação.
 
 6. Após o deploy ser concluído com sucesso, acesse a URL fornecida pelo Google App Engine para visualizar a sua aplicação Flask.
-
-## Telas da Aplicação
-
-### Login Page:
-
-![Login Page](https://user-images.githubusercontent.com/115179333/226707926-93e0b2e8-9660-440c-9e35-510017c9e9ee.png)
-
-### Index Page:
-![Index Page](https://user-images.githubusercontent.com/115179333/226708353-7b93ed0e-ac02-40f1-a9da-c43156249588.png)
-
-### Tweets Count Page:
-![Tweets Count Page](https://user-images.githubusercontent.com/115179333/226708420-d6e0cd4c-7c7b-4231-bb9a-c5c6f3fb7401.png)
-
 
 ## Principais Métodos
 
